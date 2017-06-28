@@ -1,5 +1,6 @@
 package com.qg.fangrui.LiveChat.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -7,22 +8,26 @@ import java.io.Serializable;
  * Created by FunriLy on 2017/6/27.
  * From small beginnings comes great things.
  */
+@Entity //实体类，利用对象关系映射生成数据库表
+@Table(name = "users", schema = "livechat", catalog = "")
 public class User implements Serializable{
 
     private static final long serialVersionUID = 1l;
 
+
     private String id;
-    private String randomName;
+    private String name;
 
     public User(){
 
     }
 
-    public User(String id, String randomName) {
+    public User(String id, String name) {
         this.id = id;
-        this.randomName = randomName;
+        this.name = name;
     }
 
+    @Id
     public String getId() {
         return id;
     }
@@ -31,12 +36,13 @@ public class User implements Serializable{
         this.id = id;
     }
 
-    public String getRandomName() {
-        return randomName;
+    @Column(nullable = false, name = "name")
+    public String getName() {
+        return name;
     }
 
-    public void setRandomName(String randomName) {
-        this.randomName = randomName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -49,7 +55,7 @@ public class User implements Serializable{
         //如果id不为null，则进行字符串对比成功加个否定来返回true
         if (id != null ? !id.equals(that.id) : that.id != null)
             return false;
-        if (randomName != null ? !randomName.equals(that.randomName) : that.randomName != null)
+        if (name != null ? !name.equals(that.name) : that.name != null)
             return false;
 
         return true;
@@ -58,7 +64,15 @@ public class User implements Serializable{
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (randomName != null ? randomName.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
