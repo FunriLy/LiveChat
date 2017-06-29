@@ -13,6 +13,7 @@ public class Recording implements Serializable {
 
     private User user;
     private Message message;
+    private long accessTime;
 
     public Recording(){}
 
@@ -30,6 +31,14 @@ public class Recording implements Serializable {
 
     public void setMessage(Message message) {
         this.message = message;
+    }
+
+    public long getAccessTime() {
+        return accessTime;
+    }
+
+    public void setAccessTime(long accessTime) {
+        this.accessTime = accessTime;
     }
 
     @Override

@@ -14,8 +14,9 @@ public class User implements Serializable{
 
     private static final long serialVersionUID = 1l;
 
-
+    @Id
     private String id;
+    @Column(nullable = false, name = "name")
     private String name;
 
     public User(){
@@ -27,7 +28,7 @@ public class User implements Serializable{
         this.name = name;
     }
 
-    @Id
+
     public String getId() {
         return id;
     }
@@ -36,7 +37,7 @@ public class User implements Serializable{
         this.id = id;
     }
 
-    @Column(nullable = false, name = "name")
+
     public String getName() {
         return name;
     }
