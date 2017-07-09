@@ -56,7 +56,7 @@ public class ChannelInterceptor extends ChannelInterceptorAdapter {
             //订阅频道集合
             Set<String> subscriptionSet = new HashSet<>();
             subscriptionSet.add("/topic/group");
-            subscriptionSet.add("/topic/online_user");
+            subscriptionSet.add("/topic/online");
             if (subscriptionSet.contains(accessor.getDestination())){
                 //频道合法
                 return super.preSend(message, channel);
@@ -89,7 +89,7 @@ public class ChannelInterceptor extends ChannelInterceptorAdapter {
                 recording.setAccessTime(Calendar.getInstance().getTimeInMillis());
                 redisDao.addRecordingList(recording);
                 //通过websocket实时返回在线人数
-                this.simpMessagingTemplate.convertAndSend("/topic/online_user",redisDao.getAllUser());
+                this.simpMessagingTemplate.convertAndSend("/topic/online",redisDao.getAllUser());
             }
         }
 
@@ -99,7 +99,7 @@ public class ChannelInterceptor extends ChannelInterceptorAdapter {
             User user = map.get("user");
             if (user != null) {
                 redisDao.removeUser(user);
-                this.simpMessagingTemplate.convertAndSend("/topic/online_user",redisDao.getAllUser());
+                this.simpMessagingTemplate.convertAndSend("/topic/online",redisDao.getAllUser());
             }
         }
         super.afterSendCompletion(message, channel, sent, ex);
